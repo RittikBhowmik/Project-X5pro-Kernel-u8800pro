@@ -8905,9 +8905,6 @@ out:
 	return rc;
 }
 
-void *pWifiPrealloc;
-EXPORT_SYMBOL(pWifiPrealloc);
-
 static void __init msm7x30_init_mmc(void)
 {
 #ifdef CONFIG_MMC_MSM_SDC1_SUPPORT

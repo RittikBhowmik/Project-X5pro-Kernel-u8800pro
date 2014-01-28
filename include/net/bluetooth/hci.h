@@ -1,6 +1,6 @@
 /*
    BlueZ - Bluetooth protocol stack for Linux
-   Copyright (c) 2000-2001, 2010-2012 Code Aurora Forum. All rights reserved.
+   Copyright (c) 2000-2001, 2010-2011 Code Aurora Forum. All rights reserved.
 
    Written 2000,2001 by Maxim Krasnyansky <maxk@qualcomm.com>
 
@@ -21,7 +21,7 @@
    COPYRIGHTS, TRADEMARKS OR OTHER RIGHTS, RELATING TO USE OF THIS
    SOFTWARE IS DISCLAIMED.
 */
-
+/*DTS2012051403908 sihongfang 20120515 modify for roll back qcom bluetooth stack*/
 
 #ifndef __HCI_H
 #define __HCI_H
@@ -423,12 +423,6 @@ struct hci_cp_setup_sync_conn {
 	__le16   voice_setting;
 	__u8     retrans_effort;
 	__le16   pkt_type;
-} __packed;
-
-#define HCI_OP_WRITE_AUTOMATIC_FLUSH_TIMEOUT  0x0c28
-struct hci_cp_write_automatic_flush_timeout {
-  __le16   handle;
-  __le16   timeout;
 } __packed;
 
 #define HCI_OP_ACCEPT_SYNC_CONN_REQ	0x0429
@@ -870,18 +864,6 @@ struct hci_rp_read_data_block_size {
 	__le16   data_block_len;
 	__le16   num_blocks;
 } __packed;
-
-#define HCI_OP_READ_RSSI  0x1405
-struct hci_cp_read_rssi {
-  __le16   handle;
-} __packed;
-
-struct hci_rp_read_rssi {
-  __u8     status;
-  __le16   handle;
-  __s8     rssi;
-} __packed;
-
 
 #define HCI_OP_READ_LOCAL_AMP_INFO	0x1409
 struct hci_rp_read_local_amp_info {

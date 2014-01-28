@@ -22,6 +22,7 @@
    COPYRIGHTS, TRADEMARKS OR OTHER RIGHTS, RELATING TO USE OF THIS
    SOFTWARE IS DISCLAIMED.
 */
+/*DTS2012051403908 sihongfang 20120515 modify for roll back qcom bluetooth stack*/
 
 /* Bluetooth SCO sockets. */
 
@@ -62,7 +63,7 @@ static struct bt_sock_list sco_sk_list = {
 static void __sco_chan_add(struct sco_conn *conn, struct sock *sk, struct sock *parent);
 static void sco_chan_del(struct sock *sk, int err);
 
-static int  sco_conn_del(struct hci_conn *conn, int err, u8 is_process);
+static int  sco_conn_del(struct hci_conn *conn, int err);
 
 static void sco_sock_close(struct sock *sk);
 static void sco_sock_kill(struct sock *sk);
@@ -135,7 +136,7 @@ static inline struct sock *sco_chan_get(struct sco_conn *conn)
 	return sk;
 }
 
-static int sco_conn_del(struct hci_conn *hcon, int err, u8 is_process)
+static int sco_conn_del(struct hci_conn *hcon, int err)
 {
 	struct sco_conn *conn = hcon->sco_data;
 	struct sock *sk;
@@ -148,16 +149,10 @@ static int sco_conn_del(struct hci_conn *hcon, int err, u8 is_process)
 	/* Kill socket */
 	sk = sco_chan_get(conn);
 	if (sk) {
-		if (is_process)
-			lock_sock(sk);
-		else
-			bh_lock_sock(sk);
+		bh_lock_sock(sk);
 		sco_sock_clear_timer(sk);
 		sco_chan_del(sk, err);
-		if (is_process)
-			release_sock(sk);
-		else
-			bh_unlock_sock(sk);
+		bh_unlock_sock(sk);
 		sco_sock_kill(sk);
 	}
 
@@ -923,7 +918,7 @@ static int sco_connect_ind(struct hci_dev *hdev, bdaddr_t *bdaddr, __u8 type)
 	int lm = 0;
 
 	if (type != SCO_LINK && type != ESCO_LINK)
-		return 0;
+		return -EINVAL;
 
 	BT_DBG("hdev %s, bdaddr %s", hdev->name, batostr(bdaddr));
 
@@ -958,19 +953,19 @@ static int sco_connect_cfm(struct hci_conn *hcon, __u8 status)
 		if (conn)
 			sco_conn_ready(conn);
 	} else
-		sco_conn_del(hcon, bt_err(status), 0);
+		sco_conn_del(hcon, bt_err(status));
 
 	return 0;
 }
 
-static int sco_disconn_cfm(struct hci_conn *hcon, __u8 reason, __u8 is_process)
+static int sco_disconn_cfm(struct hci_conn *hcon, __u8 reason)
 {
 	BT_DBG("hcon %p reason %d", hcon, reason);
 
 	if (hcon->type != SCO_LINK && hcon->type != ESCO_LINK)
 		return -EINVAL;
 
-	sco_conn_del(hcon, bt_err(reason), is_process);
+	sco_conn_del(hcon, bt_err(reason));
 
 	return 0;
 }
@@ -1112,4 +1107,3 @@ void __exit sco_exit(void)
 
 module_param(disable_esco, bool, 0644);
 MODULE_PARM_DESC(disable_esco, "Disable eSCO connection creation");
-

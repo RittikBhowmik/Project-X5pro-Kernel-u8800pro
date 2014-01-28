@@ -993,6 +993,7 @@ int touch_gpio_config_interrupt(void)
  *the fucntion set_touch_probe_flag when the probe is detected use this function can set the flag ture
  */
 
+
 void set_touch_probe_flag(int detected)/*we use this to detect the probe is detected*/
 {
     if(detected >= 0)
@@ -1116,6 +1117,7 @@ static struct pm8058_platform_data pm8058_7x30_data = {
 	.mpp_pdata		= &pm8xxx_mpp_pdata,
 	.pwm_pdata		= &pm8058_pwm_data,
 };
+
 
 #ifdef CONFIG_MSM_SSBI
 static struct msm_ssbi_platform_data msm7x30_ssbi_pm8058_pdata = {
