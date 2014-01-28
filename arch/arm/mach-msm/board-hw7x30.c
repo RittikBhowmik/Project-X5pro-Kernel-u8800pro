@@ -8905,6 +8905,9 @@ out:
 	return rc;
 }
 
+void *pWifiPrealloc;
+EXPORT_SYMBOL(pWifiPrealloc);
+
 static void __init msm7x30_init_mmc(void)
 {
 #ifdef CONFIG_MMC_MSM_SDC1_SUPPORT
@@ -8962,6 +8965,7 @@ out2:
 	bcm_wifi_init_gpio_mem();
 	platform_device_register(&bcm_wifi_device);
 	platform_device_register(&bcm_wifi_device_4330);
+        pWifiPrealloc=kmalloc(8192,GFP_KERNEL);
 /* DTS2011090203253 xuke 20110902 end > */
 #endif
 /* DTS2010111804286  hanshirong 20101118 end > */
