@@ -14,7 +14,7 @@
 #ifndef VIDC_INIT_H
 #define VIDC_INIT_H
 #include <linux/ion.h>
-#include "vidc_type.h"
+#include <vidc_type.h>
 
 #define VIDC_MAX_NUM_CLIENTS 4
 #define MAX_VIDEO_NUM_OF_BUFF 100
