@@ -54,7 +54,7 @@
 #define MAX_AXI_KHZ 192000
 
 #define ACE_ACPU_MIN_UV_MV 750U
-#define ACE_ACPU_MAX_UV_MV 1350U
+#define ACE_ACPU_MAX_UV_MV 1450U
 
 struct clock_state {
 	struct clkctl_acpu_speed	*current_speed;
@@ -144,8 +144,8 @@ static struct clkctl_acpu_speed acpu_freq_tbl[] = {
 	{ 1, 1516800, PLL_2, 3, 0, UINT_MAX, 1300, VDD_RAW(1300), &pll2_tbl[6]},
 	{ 1, 1612800, PLL_2, 3, 0, UINT_MAX, 1350, VDD_RAW(1350), &pll2_tbl[7]},
 	{ 1, 1708800, PLL_2, 3, 0, UINT_MAX, 1400, VDD_RAW(1400), &pll2_tbl[8]},
-	{ 1, 1804800, PLL_2, 3, 0, UINT_MAX, 1450, VDD_RAW(1450), &pll2_tbl[9]},
-	{ 1, 1901800, PLL_2, 3, 0, UINT_MAX, 1500, VDD_RAW(1500), &pll2_tbl[10]},
+	{ 1, 1804800, PLL_2, 3, 0, UINT_MAX, 1425, VDD_RAW(1425), &pll2_tbl[9]},
+	{ 1, 1901800, PLL_2, 3, 0, UINT_MAX, 1450, VDD_RAW(1450), &pll2_tbl[10]},
 	{ 0 }
 };
 
