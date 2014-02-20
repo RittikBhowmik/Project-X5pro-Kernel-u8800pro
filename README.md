@@ -1,4 +1,5 @@
-THIS REPO IS EXPERIMENTAL.
+Work to get ION working.
+THIS IS EVEN MORE EXPERIMENTAL THAN MASTER BRANCH
 Use RittikBhowmik/Project-X5pro-Kernel-u8800pro
 
 --------------------------------------------------
