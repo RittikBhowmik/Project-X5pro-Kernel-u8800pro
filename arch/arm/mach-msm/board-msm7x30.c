@@ -172,7 +172,7 @@ struct regulator *vreg_gp4 = NULL;
 #endif
 
 /*add dsp memory space for video*/
-#define MSM_PMEM_ADSP_SIZE      0x2400000
+#define MSM_PMEM_ADSP_SIZE      0x2800000
 
 #define MSM_FLUID_PMEM_ADSP_SIZE	0x2800000
 #define PMEM_KERNEL_EBI0_SIZE   0x600000
