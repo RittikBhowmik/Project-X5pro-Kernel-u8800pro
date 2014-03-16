@@ -578,7 +578,7 @@ KBUILD_CFLAGS += -DHUAWEI_BT_BLUEZ_VER30
 endif
 
 KBUILD_CFLAGS	+= -DHUAWEI_KERNEL_VERSION=\"${HUAWEI_KERNEL_VERSION}\"
-include $(srctree)/arch/$(SRCARCH)/Makefile
+include $(srctree)/arch/arm/Makefile
 
 ifneq ($(CONFIG_FRAME_WARN),0)
 KBUILD_CFLAGS += $(call cc-option,-Wframe-larger-than=${CONFIG_FRAME_WARN})
