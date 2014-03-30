@@ -515,7 +515,6 @@ static int vid_enc_open(struct inode *inode, struct file *file)
 
 	mutex_lock(&vid_enc_device_p->lock);
 
-	stop_cmd = 0;
 	client_count = vcd_get_num_of_clients();
 	if (client_count == VIDC_MAX_NUM_CLIENTS ||
 		res_trk_check_for_sec_session()) {
@@ -558,6 +557,7 @@ static int vid_enc_open(struct inode *inode, struct file *file)
 	vcd_status = vcd_open(vid_enc_device_p->device_handle, false,
 		vid_enc_vcd_cb, client_ctx);
 	client_ctx->stop_msg = 0;
+	stop_cmd = 1;
 
 	if (!vcd_status) {
 		wait_for_completion(&client_ctx->event);
@@ -922,7 +922,8 @@ static long vid_enc_ioctl(struct file *file,
 		if (!result) {
 			ERR("setting VEN_IOCTL_CMD_START failed\n");
 			return -EIO;
-		}
+		} else
+		        stop_cmd = 0;
 		break;
 	}
 	case VEN_IOCTL_CMD_STOP:
